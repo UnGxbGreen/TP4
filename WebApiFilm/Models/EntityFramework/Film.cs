@@ -30,7 +30,7 @@ namespace WebApiFilm.Models.EntityFramework
         public string? Genre { get; set; }
 
 
-        [InverseProperty("NotesFilm")]
+        [InverseProperty(nameof(Notation.FilmNavigation))]
         public virtual ICollection<Notation> Notations { get;} = new List<Notation>();
 
        

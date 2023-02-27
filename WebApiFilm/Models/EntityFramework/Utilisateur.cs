@@ -15,7 +15,6 @@ namespace WebApiFilm.Models.EntityFramework
         [Column("utl_id")]
         public int UtilisateurId { get; set; }
 
-        [Key]
         [Column("utl_nom")]
         public string? Nom { get; set; }
 
@@ -55,8 +54,8 @@ namespace WebApiFilm.Models.EntityFramework
         public DateTime DateCreation { get; set; } = DateTime.Now;
 
 
-        [InverseProperty("NotesUtilisateur")]
-        public virtual ICollection<Notation> Notations { get;} = new List<Notation>();
+        [InverseProperty(nameof(Notation.UtilisateurNavigation))]
+        public virtual ICollection<Notation> NotesUtilisateur { get;} = new List<Notation>();
 
        
 

@@ -24,11 +24,11 @@ namespace WebApiFilm.Models.EntityFramework
         public int Note { get; set; }
 
         
-        [InverseProperty("UtilisateurNotant")]
-        public virtual Utilisateur UtilisateurNavisation { get; set; } = null!;
+        [InverseProperty("NotesUtilisateur")]
+        public virtual Utilisateur UtilisateurNavigation { get; set; } = null!;
 
         
-        [InverseProperty("FilmNote")]
+        [InverseProperty("Notations")]
         public virtual Film FilmNavigation { get; set; } = null!;
 
 
