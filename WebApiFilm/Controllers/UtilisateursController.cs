@@ -28,10 +28,24 @@ namespace WebApiFilm.Controllers
         }
 
         // GET: api/Utilisateurs/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Utilisateur>> GetUtilisateur(int id)
+        [HttpGet("/GetById/{id}")]
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurById(int id)
         {
             var utilisateur = await _context.Utilisateurs.FindAsync(id);
+
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return utilisateur;
+        }
+
+        // GET: api/Utilisateurs/5
+        [HttpGet("/GetByEmail/{mail}")]
+        public async Task<ActionResult<Utilisateur>> GetUtilisateurByMail(string mail)
+        {
+            var utilisateur = await _context.Utilisateurs.Where(x=>x.Mail.ToUpper()== mail.ToUpper()).FirstAsync();
 
             if (utilisateur == null)
             {
@@ -80,7 +94,7 @@ namespace WebApiFilm.Controllers
             _context.Utilisateurs.Add(utilisateur);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUtilisateur", new { id = utilisateur.UtilisateurId }, utilisateur);
+            return CreatedAtAction("GetUtilisateurById", new { id = utilisateur.UtilisateurId }, utilisateur);
         }
 
         // DELETE: api/Utilisateurs/5

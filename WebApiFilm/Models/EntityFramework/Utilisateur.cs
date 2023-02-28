@@ -20,10 +20,14 @@ namespace WebApiFilm.Models.EntityFramework
 
         [Column("utl_prenom")]
         public string? Prenom { get; set; }
-
+        
+        [RegularExpression(@"^0[0-9]{9}$", ErrorMessage = "…")]
         [Column("utl_mobile", TypeName = "char(10)")]
-        public string? Mobile { get; set; }
 
+        public string? Mobile { get; set; }
+        [Required]
+        [EmailAddress]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La longueur d’un email doit être comprise entre 6 et 100 caractères.")]
         [Column("utl_mail")]
         public string? Mail { get; set; }
 
@@ -51,7 +55,7 @@ namespace WebApiFilm.Models.EntityFramework
         [Column("utl_datecreation")]
         [Required]
         [DefaultValue(typeof(DateTime), "")]
-        public DateTime DateCreation { get; set; } = DateTime.Now;
+        public DateTime DateCreation { get; set; } = DateTime.UtcNow;
 
 
         [InverseProperty(nameof(Notation.UtilisateurNavigation))]

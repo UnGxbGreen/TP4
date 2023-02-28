@@ -20,7 +20,7 @@ namespace WebApiFilm.Models.EntityFramework
         public virtual DbSet<Notation> Notation { get; set; } = null!;
         public virtual DbSet<Film> Films { get; set; } = null!;
         public virtual DbSet<Utilisateur> Utilisateurs { get; set; } = null!;
-
+/*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -29,7 +29,7 @@ namespace WebApiFilm.Models.EntityFramework
                                 .EnableSensitiveDataLogging()
                                 .UseNpgsql("Server=localhost;port=5432;Database=databasefilms;uid=postgres;password=postgres;");
             }
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
