@@ -7,6 +7,7 @@ namespace TestApi
     [TestClass]
     public class UnitTest1
     {
+        private FilmRatingsDBContext _context;
         private UtilisateursController controller;
 
         public UtilisateursController Controller
@@ -22,12 +23,25 @@ namespace TestApi
             }
         }
 
-        [TestMethod]
-        public void UtilisateurTest()
+        public FilmRatingsDBContext Context
+        {
+            get
+            {
+                return _context;
+            }
+
+            set
+            {
+                _context = value;
+            }
+        }
+
+        
+        public UnitTest1()
         {
             var builder = new DbContextOptionsBuilder<FilmRatingsDBContext>().UseNpgsql("Server=localhost;port=5432;Database=databasefilms; uid=postgres; password=postgres;"); // Chaine de connexion à mettre dans les ( )
-            FilmRatingsDBContext context = new FilmRatingsDBContext(builder.Options);
-            Controller = new UtilisateursController(context);
+            Context = new FilmRatingsDBContext(builder.Options);
+            Controller = new UtilisateursController(Context);
 
 
         }
@@ -35,7 +49,12 @@ namespace TestApi
         [TestMethod]
         public void GetUtilisateurTest()
         {
+            //Datas
+            var filmFromDatabase = Context.Utilisateurs.ToList();
+            var filmFromAPi = Controller.GetUtilisateurs().Result;
 
+            //Assert
+            CollectionAssert.AreEqual(filmFromAPi.Value.ToList(), filmFromDatabase,"Données pas identique");
 
         }
     }
